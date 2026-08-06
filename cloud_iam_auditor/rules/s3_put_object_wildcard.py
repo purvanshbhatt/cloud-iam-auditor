@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from ..base import Finding, Rule, Severity, Statement
+from ..base import Finding, Provider, Rule, Severity, Statement
 from ..rules.registry import registry
 
 
@@ -39,6 +39,7 @@ class S3PutObjectWildcardRule(Rule):
     rule_id = "IAM010"
     title = "s3:PutObject granted on every bucket ('arn:aws:s3:::*')"
     severity = Severity.MEDIUM
+    provider = Provider.AWS
     description = (
         "An Allow statement grants s3:PutObject/s3:* against a wildcard S3 ARN, letting the "
         "principal write to any object path in any bucket - enables tampering of assets like "

@@ -1,0 +1,1 @@
+{"bindings":[{"role":"roles/owner","members":["allUsers"]},{"role":"roles/iam.serviceAccountTokenCreator","members":["user:t1@x.io","user:t2@x.io","user:t3@x.io"]},{"role":"roles/viewer","members":["user:p@y.io"]},{"role":"roles/storage.objectViewer","members":["user:dev@x.io"]}]} 

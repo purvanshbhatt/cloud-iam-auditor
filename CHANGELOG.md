@@ -9,10 +9,39 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Planned
 
-- GCP IAM binding + policy support (v0.2.0)
-- Live AWS mode via boto3 (v0.2.0)
+- Live AWS mode via boto3 (v0.3.0)
 - SARIF output format for GitHub Code Scanning
 - HTML report export
+- Azure RBAC support
+
+## [0.2.0] - 2026-08-06
+
+### Added
+
+- **Multi-cloud support.** GCP IAM role bindings (`gcloud projects get-iam-policy`
+  output) are now auto-detected from the JSON shape and audited with a
+  dedicated rule set, alongside the existing AWS JSON support.
+- 5 new GCP rules (GCP001-GCP005): public privileged role, public-any-role,
+  broad `serviceAccountUser`, primitive role assigned, broad
+  `serviceAccountTokenCreator`.
+- CIS GCP Foundations Benchmark mapping (1.3, 1.4, 1.5, 1.10).
+- `Provider` enum + `Finding.provider` field surfaced in both Rich table
+  (new `Cloud` column) and JSON `summary.by_provider` aggregate.
+- Two separate rule registries (`aws_registry`, `gcp_registry`) so AWS rules
+  never evaluate GCP bindings or vice versa.
+- `iam-audit rules` now lists all 15 rules with a per-rule `Cloud` column.
+
+### Changed
+
+- README restructured with table of contents, provider-specific quickstart
+  blocks, and rule tables split per cloud.
+- `iam-audit scan` prints a one-line "Detected <PROVIDER>" status line.
+- Summary panel reports per-provider finding counts.
+
+### Backward compatibility
+
+- v0.1.0 AWS rules, JSON output schema, CLI flags, and tests continue to work
+  identically; only additive fields were added to finding output.
 
 ## [0.1.0] - 2026-08-05
 

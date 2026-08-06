@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "cloud-iam-auditor-pb"
-version = "0.1.0"
+version = "0.2.0"
 description = "A lightweight CLI that audits AWS IAM JSON policies for zero-trust violations, mapped to NIST 800-53, NIST 800-207, CIS AWS Foundations, and MITRE ATT&CK."
 readme = "README.md"
 license = { file = "LICENSE" }

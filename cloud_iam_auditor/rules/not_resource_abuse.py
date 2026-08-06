@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from ..base import Finding, Rule, Severity, Statement
+from ..base import Finding, Provider, Rule, Severity, Statement
 from ..rules.registry import registry
 
 
@@ -11,6 +11,7 @@ class NotResourceAbuseRule(Rule):
     rule_id = "IAM007"
     title = "NotResource used on an Allow statement (allow-all-except resources)"
     severity = Severity.MEDIUM
+    provider = Provider.AWS
     description = (
         "An Allow statement uses NotResource, implicitly granting access to any resource not "
         "enumerated - hard to reason about and a frequent source of accidental cross-tenant "

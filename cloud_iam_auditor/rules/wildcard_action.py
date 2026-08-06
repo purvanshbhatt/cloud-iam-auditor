@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from ..base import Finding, Rule, Severity, Statement
+from ..base import Finding, Provider, Rule, Severity, Statement
 from ..rules.registry import registry
 
 
@@ -15,6 +15,7 @@ class WildcardActionRule(Rule):
     rule_id = "IAM001"
     title = "Wildcard (*) Action detected on an Allow statement"
     severity = Severity.CRITICAL
+    provider = Provider.AWS
     description = (
         "An Allow statement grants every AWS action via the '*' wildcard, violating "
         "the principle of least privilege and bypassing any per-service control."

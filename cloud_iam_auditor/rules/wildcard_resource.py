@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from ..base import Finding, Rule, Severity, Statement
+from ..base import Finding, Provider, Rule, Severity, Statement
 from ..rules.registry import registry
 
 
@@ -15,6 +15,7 @@ class WildcardResourceRule(Rule):
     rule_id = "IAM002"
     title = "Wildcard ('*') Resource paired with broad Action set"
     severity = Severity.HIGH
+    provider = Provider.AWS
     description = (
         "An Allow statement grants actions against the '*' resource, meaning the permission "
         "applies to every resource of the action's service across every account it touches."

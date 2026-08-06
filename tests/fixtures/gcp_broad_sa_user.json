@@ -1,0 +1,1 @@
+{"bindings":[{"role":"roles/iam.serviceAccountUser","members":["user:a@x.io","user:b@x.io","user:c@x.io","user:d@x.io"]}]}

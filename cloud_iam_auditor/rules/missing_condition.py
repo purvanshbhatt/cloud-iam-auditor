@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from ..base import Finding, Rule, Severity, Statement
+from ..base import Finding, Provider, Rule, Severity, Statement
 from ..rules.registry import registry
 
 SENSITIVE_ACTIONS = {
@@ -38,6 +38,7 @@ class MissingConditionRule(Rule):
     rule_id = "IAM005"
     title = "Sensitive action granted with no Condition (no MFA / source / time gate)"
     severity = Severity.MEDIUM
+    provider = Provider.AWS
     description = (
         "An Allow statement grants a sensitive action (e.g. iam:CreateAccessKey, "
         "secretsmanager:GetSecretValue) with an empty or missing Condition block, exposing "

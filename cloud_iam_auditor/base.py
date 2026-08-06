@@ -1,13 +1,13 @@
-"""Core data model: Severity, Finding, and the Rule abstract base class."""
+"""Core data model: Provider, Severity, Finding, and the Rule abstract base class."""
 
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Any, Dict
+from typing import Any
 
-Statement = Dict[str, Any]
+from .loader import Provider, Statement
 
 
 class Severity(str, Enum):
@@ -47,7 +47,12 @@ class Severity(str, Enum):
 
 @dataclass
 class Finding:
-    """A single auditable issue raised by a rule."""
+    """A single auditable issue raised by a rule.
+
+    `provider` tags the cloud (`aws` vs `gcp`) so reports can group / filter
+    across mixed-policy inventories. Default is `None` to keep the dataclass
+    backwards-compatible with any v0.1.x callers that don't pass it.
+    """
 
     rule_id: str
     severity: Severity
@@ -57,12 +62,14 @@ class Finding:
     remediation: str
     framework_refs: list[str] = field(default_factory=list)
     rule_description: str | None = None
+    provider: Provider | None = None
 
     def to_dict(self) -> dict[str, Any]:
         return {
             "rule_id": self.rule_id,
             "severity": self.severity.value,
             "title": self.title,
+            "provider": self.provider.value if self.provider else None,
             "statement_index": self.statement_index,
             "evidence": self.evidence,
             "remediation": self.remediation,
@@ -72,23 +79,20 @@ class Finding:
 
 
 class Rule(ABC):
-    """Abstract base class for every detection rule in the engine."""
+    """Abstract base class for every detection rule in the engine.
+
+    Concrete rules set `provider` so the registry can route findings correctly.
+    """
 
     rule_id: str = ""
     title: str = ""
     severity: Severity = Severity.MEDIUM
     description: str = ""
+    provider: Provider | None = None
 
     @abstractmethod
     def evaluate(self, statements: list[Statement]) -> list[Finding]:
-        """Inspect the list of policy statements and return any findings.
-
-        Args:
-            statements: Normalized flat list of IAM statement dicts.
-
-        Returns:
-            Zero or more `Finding` objects; never None.
-        """
+        """Inspect the list of policy statements / bindings and return any findings."""
         raise NotImplementedError
 
     def _finding(
@@ -98,7 +102,7 @@ class Rule(ABC):
         remediation: str,
         framework_refs: list[str] | None = None,
     ) -> Finding:
-        """Helper: build a Finding pre-tagged with this rule's metadata."""
+        """Build a Finding pre-tagged with this rule's metadata + provider."""
         return Finding(
             rule_id=self.rule_id,
             severity=self.severity,
@@ -108,4 +112,8 @@ class Rule(ABC):
             remediation=remediation,
             framework_refs=list(framework_refs or []),
             rule_description=self.description,
+            provider=self.provider,
         )
+
+
+__all__ = ["Provider", "Severity", "Finding", "Rule", "Statement"]

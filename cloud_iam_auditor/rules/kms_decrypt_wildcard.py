@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from ..base import Finding, Rule, Severity, Statement
+from ..base import Finding, Provider, Rule, Severity, Statement
 from ..rules.registry import registry
 
 
@@ -30,6 +30,7 @@ class KmsDecryptWildcardRule(Rule):
     rule_id = "IAM009"
     title = "kms:Decrypt granted on wildcard ('*') Resource - blanket KMS access"
     severity = Severity.HIGH
+    provider = Provider.AWS
     description = (
         "An Allow statement grants kms:Decrypt (or kms:*) against '*' - the holder can decrypt "
         "any ciphertext encrypted with any KMS key in the account they can address, defeating "

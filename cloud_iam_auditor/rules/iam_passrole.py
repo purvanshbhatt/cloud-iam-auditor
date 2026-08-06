@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from ..base import Finding, Rule, Severity, Statement
+from ..base import Finding, Provider, Rule, Severity, Statement
 from ..rules.registry import registry
 
 
@@ -29,6 +29,7 @@ class IamPassRoleRule(Rule):
     rule_id = "IAM004"
     title = "iam:PassRole on wildcard ('*') Resource enables privilege escalation"
     severity = Severity.HIGH
+    provider = Provider.AWS
     description = (
         "An Allow statement grants iam:PassRole (or '*') against '*', letting the principal "
         "forward any role ARN to a service - a well-known path to privilege escalation (e.g. "

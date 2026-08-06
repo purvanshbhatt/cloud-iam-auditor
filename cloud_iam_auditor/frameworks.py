@@ -106,6 +106,23 @@ _REGISTRY: dict[str, FrameworkRef] = {
         "MITRE_T1550_001", "MITRE ATT&CK", "T1550.001",
         "Use Alternate Authentication Material: Application Access Token",
     ),
+    # ---- v0.2.0 additions: CIS GCP Foundations Benchmark v3.0 ----
+    "CIS_GCP_1_3": FrameworkRef(
+        "CIS_GCP_1_3", "CIS GCP Foundations", "1.3",
+        "Ensure that there are no highly privileged or sensitive service accounts in the project",
+    ),
+    "CIS_GCP_1_4": FrameworkRef(
+        "CIS_GCP_1_4", "CIS GCP Foundations", "1.4",
+        "Ensure that IAM users are not assigned the Service Account User or Service Account Token Creator role at the project level",
+    ),
+    "CIS_GCP_1_5": FrameworkRef(
+        "CIS_GCP_1_5", "CIS GCP Foundations", "1.5",
+        "Ensure that Service Account has no Client-Email matching a corporate email",
+    ),
+    "CIS_GCP_1_10": FrameworkRef(
+        "CIS_GCP_1_10", "CIS GCP Foundations", "1.10",
+        "Ensure that IAM users are not assigned Service Account Token Creator role at organization level",
+    ),
 }
 
 

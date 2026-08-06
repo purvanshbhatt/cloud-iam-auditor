@@ -36,14 +36,14 @@ def test_render_json_roundtrips_summary_and_findings():
 def test_cli_scan_passes_on_benign_policy(fixtures_dir: Path):
     result = runner.invoke(app, ["scan", str(fixtures_dir / "benign_policy.json"), "--json"])
     assert result.exit_code == 0, result.output
-    payload = json.loads(result.output)
+    payload = json.loads(result.stdout)
     assert payload["summary"]["total"] == 0
 
 
 def test_cli_scan_json_reports_findings(fixtures_dir: Path):
     result = runner.invoke(app, ["scan", str(fixtures_dir / "wildcard_action.json"), "--json"])
     assert result.exit_code == 0
-    payload = json.loads(result.output)
+    payload = json.loads(result.stdout)
     assert payload["summary"]["critical"] >= 1
     rules = {f["rule_id"] for f in payload["findings"]}
     assert "IAM001" in rules
@@ -62,9 +62,26 @@ def test_cli_scan_severity_filter_suppresses_low(fixtures_dir: Path):
         app,
         ["scan", str(fixtures_dir / "kms_decrypt_wildcard.json"), "--json", "--severity", "critical"],
     )
-    payload = json.loads(result.output)
+    payload = json.loads(result.stdout)
     # No critical findings in this fixture => filter should drop every entry.
     assert payload["summary"]["total"] == 0
+
+
+def test_cli_scan_detects_gcp_and_reports_json(fixtures_dir: Path):
+    result = runner.invoke(app, ["scan", str(fixtures_dir / "gcp_combined.json"), "--json"])
+    assert result.exit_code == 0
+    payload = json.loads(result.stdout)
+    assert payload["summary"]["by_provider"]["gcp"] >= 3
+    ids = {f["rule_id"] for f in payload["findings"]}
+    assert ids == {"GCP001", "GCP005", "GCP004"}
+
+
+def test_cli_scan_gcp_exit_code(fixtures_dir: Path):
+    result = runner.invoke(
+        app,
+        ["scan", str(fixtures_dir / "gcp_combined.json"), "--json", "--exit-code"],
+    )
+    assert result.exit_code == 1
 
 
 def test_cli_scan_invalid_severity_exits_two():

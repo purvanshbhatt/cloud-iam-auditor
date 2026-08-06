@@ -13,9 +13,9 @@ from rich.console import Console
 
 from . import __version__
 from .base import Severity
-from .loader import LoaderError, load_policy
+from .loader import LoaderError, Provider, load_policy
 from .reporter import Reporter
-from .rules.registry import all_rules
+from .rules.registry import all_aws_rules, all_gcp_rules
 
 
 def _force_utf8_streams() -> None:
@@ -35,13 +35,16 @@ _force_utf8_streams()
 app = typer.Typer(
     name="iam-audit",
     help=(
-        "Audit AWS IAM JSON policies for zero-trust violations and map findings to "
-        "NIST 800-53, NIST 800-207, CIS AWS Foundations, and MITRE ATT&CK."
+        "Audit AWS and GCP IAM JSON policies for zero-trust violations and map findings to "
+        "NIST 800-53, NIST 800-207, CIS Foundations (AWS/GCP), and MITRE ATT&CK. "
+        "Provider is auto-detected from the JSON shape (AWS `Statement` vs GCP `bindings`)."
     ),
     no_args_is_help=True,
     add_completion=False,
 )
 console = Console()
+# Status / progress messages routed to stderr so stdout stays pure for JSON pipes.
+status = Console(stderr=True)
 
 
 def _version_callback(value: bool) -> None:
@@ -66,7 +69,9 @@ def _root(
 
 @app.command()
 def scan(
-    file_path: str = typer.Argument(..., help="Path to an AWS IAM policy JSON file."),
+    file_path: str = typer.Argument(
+        ..., help="Path to an AWS or GCP IAM policy JSON file (provider is auto-detected)."
+    ),
     json_out: bool = typer.Option(
         False, "--json", help="Emit a machine-readable JSON report instead of a Rich table."
     ),
@@ -100,15 +105,31 @@ def scan(
         console.print(f"[bold red]Error:[/bold red] {exc}")
         raise typer.Exit(code=2) from None
 
-    reporter = Reporter(color=not no_color)
+    if policy.provider == Provider.AWS:
+        rule_classes = all_aws_rules().values()
+        status.print(
+            f"[bold blue]Detected AWS IAM policy[/bold blue] "
+            f"({len(rule_classes)} rules available, {len(policy.statements)} statements)"
+        )
+    elif policy.provider == Provider.GCP:
+        rule_classes = all_gcp_rules().values()
+        status.print(
+            f"[bold blue]Detected GCP IAM policy[/bold blue] "
+            f"({len(rule_classes)} rules available, {len(policy.statements)} bindings)"
+        )
+    else:  # pragma: no cover - loader rejects UNKNOWN before this branch
+        console.print(f"[bold red]Error:[/bold red] unknown provider for {file_path}")
+        raise typer.Exit(code=2) from None
+
     findings: list = []
-    for rule_cls in all_rules().values():
+    for rule_cls in rule_classes:
         found = rule_cls().evaluate(policy.statements)
         findings.extend(found)
 
     if threshold is not None:
         findings = [f for f in findings if f.severity >= threshold]
 
+    reporter = Reporter(color=not no_color)
     if json_out:
         reporter.print_json(findings, str(policy.source))
     else:
@@ -124,17 +145,22 @@ def list_rules(
         False, "--json", help="Emit rules as JSON instead of a table."
     ),
 ) -> None:
-    """List all currently registered detection rules."""
-    rules = all_rules()
+    """List all currently registered detection rules (AWS + GCP)."""
+    aws = all_aws_rules()
+    gcp = all_gcp_rules()
+    all_combined = {**aws, **gcp}
     if json_out:
         payload = [
             {
                 "rule_id": rid,
-                "severity": rules[rid].severity.value,
-                "title": rules[rid].title,
-                "description": rules[rid].description,
+                "provider": (
+                    "aws" if rid in aws else "gcp"
+                ),
+                "severity": all_combined[rid].severity.value,
+                "title": all_combined[rid].title,
+                "description": all_combined[rid].description,
             }
-            for rid in sorted(rules)
+            for rid in sorted(all_combined)
         ]
         sys.stdout.write(json.dumps(payload, indent=2))
         sys.stdout.write("\n")
@@ -145,15 +171,17 @@ def list_rules(
 
     table = Table(title="Registered IAM Audit Rules", show_lines=True, border_style="cyan")
     table.add_column("ID", style="bold cyan", width=8)
+    table.add_column("Cloud", width=6)
     table.add_column("Severity", width=10)
-    table.add_column("Title", width=46)
-    table.add_column("Description", width=70)
-    for rid in sorted(rules):
-        r = rules[rid]
-        table.add_row(rid, r.severity.value.upper(), r.title, r.description)
-    # Also print a plain-text index line so test/ci parsers can match each rule_id
-    # even when ANSI/padding splits the cell content.
-    sys.stdout.write("Rule IDs: " + ", ".join(sorted(rules)) + "\n")
+    table.add_column("Title", width=42)
+    table.add_column("Description", width=66)
+    for rid in sorted(all_combined):
+        r = all_combined[rid]
+        cloud = "aws" if rid in aws else "gcp"
+        table.add_row(rid, cloud, r.severity.value.upper(), r.title, r.description)
+    sys.stdout.write(
+        "Rule IDs: " + ", ".join(sorted(all_combined)) + "\n"
+    )
     table_render.console.print(table)
 
 

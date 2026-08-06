@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from ..base import Finding, Rule, Severity, Statement
+from ..base import Finding, Provider, Rule, Severity, Statement
 from ..rules.registry import registry
 
 
@@ -11,6 +11,7 @@ class NotActionAbuseRule(Rule):
     rule_id = "IAM006"
     title = "NotAction used on an Allow statement (allow-all-except semantics)"
     severity = Severity.HIGH
+    provider = Provider.AWS
     description = (
         "An Allow statement uses NotAction, which becomes an implicit '*'. Anything not "
         "explicitly negated is permitted, frequently creating silent over-permissioning."

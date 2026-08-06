@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from ..base import Finding, Rule, Severity, Statement
+from ..base import Finding, Provider, Rule, Severity, Statement
 from ..rules.registry import registry
 
 
@@ -41,6 +41,7 @@ class StsAssumeRoleWildcardRule(Rule):
     rule_id = "IAM008"
     title = "sts:AssumeRole granted with wildcard Resource - account-wide role pivot"
     severity = Severity.HIGH
+    provider = Provider.AWS
     description = (
         "An Allow statement grants sts:AssumeRole (or '*') against the '*' resource, letting "
         "the caller assume any role that trusts this principal - a common intruder pivot off "

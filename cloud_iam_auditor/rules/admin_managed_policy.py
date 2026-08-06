@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from ..base import Finding, Rule, Severity, Statement
+from ..base import Finding, Provider, Rule, Severity, Statement
 from ..rules.registry import registry
 
 ADMIN_POLICY_ARN = "arn:aws:iam::aws:policy/AdministratorAccess"
@@ -23,6 +23,7 @@ class AdminManagedPolicyRule(Rule):
     rule_id = "IAM003"
     title = "AWS-managed AdministratorAccess policy attached"
     severity = Severity.CRITICAL
+    provider = Provider.AWS
     description = (
         "A policy attachment references arn:aws:iam::aws:policy/AdministratorAccess, granting "
         "unrestricted administrative control over the entire AWS account."
