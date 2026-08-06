@@ -1,0 +1,92 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cloud-iam-auditor-pb"
+version = "0.1.0"
+description = "A lightweight CLI that audits AWS IAM JSON policies for zero-trust violations, mapped to NIST 800-53, NIST 800-207, CIS AWS Foundations, and MITRE ATT&CK."
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.8"
+authors = [
+    { name = "Purvansh Bhatt", email = "purvansh95b@gmail.com" },
+]
+keywords = [
+    "aws",
+    "iam",
+    "security",
+    "cloud-security",
+    "zero-trust",
+    "compliance",
+    "nist",
+    "mitre",
+    "cis",
+    "audit",
+    "cli",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "Intended Audience :: System Administrators",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Security",
+    "Topic :: System :: Systems Administration",
+    "Topic :: Utilities",
+]
+dependencies = [
+    "typer>=0.9.0",
+    "rich>=13.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "ruff>=0.4.0",
+    "build>=1.0.0",
+    "twine>=4.0.0",
+]
+
+[project.scripts]
+iam-audit = "cloud_iam_auditor.main:app"
+
+[project.urls]
+Homepage = "https://github.com/purvanshbhatt/cloud-iam-auditor"
+Repository = "https://github.com/purvanshbhatt/cloud-iam-auditor"
+Issues = "https://github.com/purvanshbhatt/cloud-iam-auditor/issues"
+Changelog = "https://github.com/purvanshbhatt/cloud-iam-auditor/blob/main/CHANGELOG.md"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["cloud_iam_auditor*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py38"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q"
+testpaths = ["tests"]
+
+[tool.coverage.run]
+branch = true
+source = ["cloud_iam_auditor"]
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 85
