@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Initial release of `cloud-iam-auditor-pb`.
+- Published `cloud-iam-auditor-pb` to PyPI so the CLI can be installed with `pip install cloud-iam-auditor-pb`.
 - Typer-based CLI: `iam-audit scan`, `iam-audit rules`, `iam-audit --version`.
 - AWS IAM JSON policy parser accepting both single-policy and bundled `PolicyDocument` shapes.
 - Rule engine with 10 curated detection rules (IAM001-IAM010) covering wildcard actions/
@@ -32,3 +33,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   accessibility flag.
 - pytest suite with fixture-driven per-rule coverage and reporter snapshot tests.
 - GitHub Actions CI matrix (Python 3.8-3.12, Ubuntu + Windows) running `ruff` and `pytest`.
+
+
