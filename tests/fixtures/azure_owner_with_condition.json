@@ -1,0 +1,1 @@
+{"value":[{"roleDefinitionId":"/x/roleDefinitions/8e3af657-a8ff-443c-a75c-2fe2c4fcb611","role_name":"Owner","principalId":"p1","scope":"/subscriptions/aa","condition":"@Request.ipRanges ['10.0.0.0/16']"}]}

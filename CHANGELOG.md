@@ -9,10 +9,48 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Planned
 
-- Live AWS mode via boto3 (v0.3.0)
-- SARIF output format for GitHub Code Scanning
 - HTML report export
-- Azure RBAC support
+- Azure RBAC conditional access / ABAC rule expansion
+
+## [0.3.0] - 2026-08-07
+
+### Added
+
+- **Tri-cloud support.** Azure role-assignment JSON (`{"value": [...]}`) is now auto-detected
+  alongside AWS + GCP, with 8 dedicated RBAC rules.
+- **Live mode.** Five new subcommands pull IAM data straight from the cloud via the boto3 /
+  google-cloud-resourcemanager / azure-mgmt-authorization SDKs:
+  - `iam-audit aws-account [--scope ALL|AWS|LOCAL]` enumerates managed IAM policies.
+  - `iam-audit aws-policy POLICY_ARN` audits a single managed policy by ARN.
+  - `iam-audit aws-role ROLE_NAME` audits every inline policy on an IAM role.
+  - `iam-audit gcp-project PROJECT_ID` reads project IAM bindings via Application Default
+    Credentials.
+  - `iam-audit azure-subscription` audits role assignments in the configured subscription.
+- **SARIF output.** `--format sarif` emits SARIF 2.1.0 for GitHub Code Scanning integration;
+  `--out PATH` writes the report to disk.
+- **CIS Microsoft Azure Foundations Benchmark mappings** (1.3, 1.23, 3.7, 4.1, 8.1) and
+  Azure-relevant MITRE ATT&CK techniques (T1098.001, T1530, T1552.001, T1611, T1212).
+- **Optional dependency extras**: `[live]` (boto3 + google-cloud-resourcemanager) and
+  `[azure]` (azure-identity + azure-mgmt-authorization). Core JSON auditing still has
+  zero SDK deps.
+- New `Provider.AZURE` enum value + a third scoped `azure_registry` so AWS rules never
+  evaluate GCP bindings or Azure assignments.
+- `LoadedPolicy.source` is now a `str` (was `Path`) so live-mode synthetic source labels
+  (e.g. `aws:arn:...`, `azure:subscription`) round-trip cleanly across platforms.
+
+### Changed
+
+- `--format {table,json,sarif}` replaces the bare `--json` toggle on every command (the
+  `--json` flag remains as a compat alias).
+- Live-mode errors now render Rich-escaped messages so `[live]` / `[azure]` install hints
+  display literally rather than being parsed as Rich markup.
+- README restructured: live-mode quickstart, Azure rule table, SARIF integration section.
+
+### Backward compatibility
+
+- v0.1.x/v0.2.x AWS + GCP rules, JSON output schema, and CLI flags continue to work
+  identically; only additive fields (new framework tags, `provider` column, `by_provider`
+  aggregate) and additive commands (live subcommands, SARIF format) were introduced.
 
 ## [0.2.0] - 2026-08-06
 

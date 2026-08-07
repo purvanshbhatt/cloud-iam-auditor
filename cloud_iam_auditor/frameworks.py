@@ -123,6 +123,48 @@ _REGISTRY: dict[str, FrameworkRef] = {
         "CIS_GCP_1_10", "CIS GCP Foundations", "1.10",
         "Ensure that IAM users are not assigned Service Account Token Creator role at organization level",
     ),
+    # ---- v0.3.0 additions: CIS Microsoft Azure Foundations Benchmark ----
+    "CIS_AZURE_1_3": FrameworkRef(
+        "CIS_AZURE_1_3", "CIS Microsoft Azure Foundations", "1.3",
+        "Ensure that there are no custom subscription owner assignments",
+    ),
+    "CIS_AZURE_1_23": FrameworkRef(
+        "CIS_AZURE_1_23", "CIS Microsoft Azure Foundations", "1.23",
+        "Ensure that no custom subscription owner roles are created",
+    ),
+    "CIS_AZURE_3_7": FrameworkRef(
+        "CIS_AZURE_3_7", "CIS Microsoft Azure Foundations", "3.7",
+        "Ensure default network access rule for Storage Accounts is set to Deny",
+    ),
+    "CIS_AZURE_4_1": FrameworkRef(
+        "CIS_AZURE_4_1", "CIS Microsoft Azure Foundations", "4.1",
+        "Ensure that 'Enforce SSL connection' is set to 'ENABLED' for Standard Azure SQL Servers",
+    ),
+    "CIS_AZURE_8_1": FrameworkRef(
+        "CIS_AZURE_8_1", "CIS Microsoft Azure Foundations", "8.1",
+        "Ensure that the default network access rule for Azure Key Vault is set to Deny",
+    ),
+    # ---- v0.3.0 additions: MITRE ATT&CK Enterprise (Azure-relevant) ----
+    "MITRE_T1098_001": FrameworkRef(
+        "MITRE_T1098_001", "MITRE ATT&CK", "T1098.001",
+        "Account Manipulation: Additional Cloud Credentials",
+    ),
+    "MITRE_T1552_001": FrameworkRef(
+        "MITRE_T1552_001", "MITRE ATT&CK", "T1552.001",
+        "Unsecured Credentials: Credentials In Files",
+    ),
+    "MITRE_T1530": FrameworkRef(
+        "MITRE_T1530", "MITRE ATT&CK", "T1530",
+        "Data from Cloud Storage Object",
+    ),
+    "MITRE_T1611": FrameworkRef(
+        "MITRE_T1611", "MITRE ATT&CK", "T1611",
+        "Escape to Host",
+    ),
+    "MITRE_T1212": FrameworkRef(
+        "MITRE_T1212", "MITRE ATT&CK", "T1212",
+        "Exploitation for Credential Access",
+    ),
 }
 
 
