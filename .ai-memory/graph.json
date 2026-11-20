@@ -1,0 +1,330 @@
+{
+  "generatedAt": "2026-08-23T05:02:52.423Z",
+  "projectId": "purvanshbhatt-cloud-iam-auditor",
+  "nodes": [
+    {
+      "id": "session:opencode:ses_02cd79b2effe7M1JKfM4Ydq93Z",
+      "type": "session",
+      "label": "Building cloud-iam-auditor PyPI package",
+      "weight": 563,
+      "meta": {
+        "ide": "opencode",
+        "updatedAt": "2026-08-07T19:47:53.186Z"
+      }
+    },
+    {
+      "id": "file:s://github.com",
+      "type": "file",
+      "label": "s://github.com",
+      "weight": 4
+    },
+    {
+      "id": "file:roles/iam.serviceA",
+      "type": "file",
+      "label": "roles/iam.serviceA",
+      "weight": 4
+    },
+    {
+      "id": "file:s://pypi.org",
+      "type": "file",
+      "label": "s://pypi.org",
+      "weight": 3
+    },
+    {
+      "id": "file:examples/sample_aws_policy.json",
+      "type": "file",
+      "label": "examples/sample_aws_policy.json",
+      "weight": 2
+    },
+    {
+      "id": "file:C:/Users/purva/.pypirc",
+      "type": "file",
+      "label": "C:/Users/purva/.pypirc",
+      "weight": 2
+    },
+    {
+      "id": "file:rules/registry.py",
+      "type": "file",
+      "label": "rules/registry.py",
+      "weight": 2
+    },
+    {
+      "id": "file:3.8/3.9/3.10/3.11/3.12",
+      "type": "file",
+      "label": "3.8/3.9/3.10/3.11/3.12",
+      "weight": 1
+    },
+    {
+      "id": "file:cloud_iam_auditor/main.py",
+      "type": "file",
+      "label": "cloud_iam_auditor/main.py",
+      "weight": 1
+    },
+    {
+      "id": "file:1.4/1.5",
+      "type": "file",
+      "label": "1.4/1.5",
+      "weight": 1
+    },
+    {
+      "id": "file:tests/test_gcp_rules.py",
+      "type": "file",
+      "label": "tests/test_gcp_rules.py",
+      "weight": 1
+    },
+    {
+      "id": "file:rules/aws_registry.py",
+      "type": "file",
+      "label": "rules/aws_registry.py",
+      "weight": 1
+    },
+    {
+      "id": "file:rules/gcp_registry.py",
+      "type": "file",
+      "label": "rules/gcp_registry.py",
+      "weight": 1
+    },
+    {
+      "id": "file:rules/__init__.py",
+      "type": "file",
+      "label": "rules/__init__.py",
+      "weight": 1
+    },
+    {
+      "id": "file:v0.1/v0.2",
+      "type": "file",
+      "label": "v0.1/v0.2",
+      "weight": 1
+    },
+    {
+      "id": "topic:bold",
+      "type": "topic",
+      "label": "bold",
+      "weight": 1
+    },
+    {
+      "id": "topic:console.print",
+      "type": "topic",
+      "label": "console.print",
+      "weight": 1
+    },
+    {
+      "id": "topic:pypi",
+      "type": "topic",
+      "label": "pypi",
+      "weight": 1
+    },
+    {
+      "id": "topic:build",
+      "type": "topic",
+      "label": "build",
+      "weight": 1
+    },
+    {
+      "id": "topic:token",
+      "type": "topic",
+      "label": "token",
+      "weight": 1
+    },
+    {
+      "id": "topic:findings",
+      "type": "topic",
+      "label": "findings",
+      "weight": 1
+    },
+    {
+      "id": "topic:file_path",
+      "type": "topic",
+      "label": "file_path",
+      "weight": 1
+    },
+    {
+      "id": "topic:security",
+      "type": "topic",
+      "label": "security",
+      "weight": 1
+    },
+    {
+      "id": "topic:action",
+      "type": "topic",
+      "label": "action",
+      "weight": 1
+    },
+    {
+      "id": "topic:json",
+      "type": "topic",
+      "label": "json",
+      "weight": 1
+    },
+    {
+      "id": "topic:policy",
+      "type": "topic",
+      "label": "policy",
+      "weight": 1
+    },
+    {
+      "id": "topic:rule",
+      "type": "topic",
+      "label": "rule",
+      "weight": 1
+    }
+  ],
+  "edges": [
+    {
+      "source": "session:opencode:ses_02cd79b2effe7M1JKfM4Ydq93Z",
+      "target": "file:s://github.com",
+      "relation": "touched",
+      "weight": 4
+    },
+    {
+      "source": "session:opencode:ses_02cd79b2effe7M1JKfM4Ydq93Z",
+      "target": "file:roles/iam.serviceA",
+      "relation": "touched",
+      "weight": 4
+    },
+    {
+      "source": "session:opencode:ses_02cd79b2effe7M1JKfM4Ydq93Z",
+      "target": "file:s://pypi.org",
+      "relation": "touched",
+      "weight": 3
+    },
+    {
+      "source": "session:opencode:ses_02cd79b2effe7M1JKfM4Ydq93Z",
+      "target": "file:examples/sample_aws_policy.json",
+      "relation": "touched",
+      "weight": 2
+    },
+    {
+      "source": "session:opencode:ses_02cd79b2effe7M1JKfM4Ydq93Z",
+      "target": "file:C:/Users/purva/.pypirc",
+      "relation": "touched",
+      "weight": 2
+    },
+    {
+      "source": "session:opencode:ses_02cd79b2effe7M1JKfM4Ydq93Z",
+      "target": "file:rules/registry.py",
+      "relation": "touched",
+      "weight": 2
+    },
+    {
+      "source": "session:opencode:ses_02cd79b2effe7M1JKfM4Ydq93Z",
+      "target": "file:3.8/3.9/3.10/3.11/3.12",
+      "relation": "touched",
+      "weight": 1
+    },
+    {
+      "source": "session:opencode:ses_02cd79b2effe7M1JKfM4Ydq93Z",
+      "target": "file:cloud_iam_auditor/main.py",
+      "relation": "touched",
+      "weight": 1
+    },
+    {
+      "source": "session:opencode:ses_02cd79b2effe7M1JKfM4Ydq93Z",
+      "target": "file:1.4/1.5",
+      "relation": "touched",
+      "weight": 1
+    },
+    {
+      "source": "session:opencode:ses_02cd79b2effe7M1JKfM4Ydq93Z",
+      "target": "file:tests/test_gcp_rules.py",
+      "relation": "touched",
+      "weight": 1
+    },
+    {
+      "source": "session:opencode:ses_02cd79b2effe7M1JKfM4Ydq93Z",
+      "target": "file:rules/aws_registry.py",
+      "relation": "touched",
+      "weight": 1
+    },
+    {
+      "source": "session:opencode:ses_02cd79b2effe7M1JKfM4Ydq93Z",
+      "target": "file:rules/gcp_registry.py",
+      "relation": "touched",
+      "weight": 1
+    },
+    {
+      "source": "session:opencode:ses_02cd79b2effe7M1JKfM4Ydq93Z",
+      "target": "file:rules/__init__.py",
+      "relation": "touched",
+      "weight": 1
+    },
+    {
+      "source": "session:opencode:ses_02cd79b2effe7M1JKfM4Ydq93Z",
+      "target": "file:v0.1/v0.2",
+      "relation": "touched",
+      "weight": 1
+    },
+    {
+      "source": "session:opencode:ses_02cd79b2effe7M1JKfM4Ydq93Z",
+      "target": "topic:bold",
+      "relation": "discusses",
+      "weight": 1
+    },
+    {
+      "source": "session:opencode:ses_02cd79b2effe7M1JKfM4Ydq93Z",
+      "target": "topic:console.print",
+      "relation": "discusses",
+      "weight": 1
+    },
+    {
+      "source": "session:opencode:ses_02cd79b2effe7M1JKfM4Ydq93Z",
+      "target": "topic:pypi",
+      "relation": "discusses",
+      "weight": 1
+    },
+    {
+      "source": "session:opencode:ses_02cd79b2effe7M1JKfM4Ydq93Z",
+      "target": "topic:build",
+      "relation": "discusses",
+      "weight": 1
+    },
+    {
+      "source": "session:opencode:ses_02cd79b2effe7M1JKfM4Ydq93Z",
+      "target": "topic:token",
+      "relation": "discusses",
+      "weight": 1
+    },
+    {
+      "source": "session:opencode:ses_02cd79b2effe7M1JKfM4Ydq93Z",
+      "target": "topic:findings",
+      "relation": "discusses",
+      "weight": 1
+    },
+    {
+      "source": "session:opencode:ses_02cd79b2effe7M1JKfM4Ydq93Z",
+      "target": "topic:file_path",
+      "relation": "discusses",
+      "weight": 1
+    },
+    {
+      "source": "session:opencode:ses_02cd79b2effe7M1JKfM4Ydq93Z",
+      "target": "topic:security",
+      "relation": "discusses",
+      "weight": 1
+    },
+    {
+      "source": "session:opencode:ses_02cd79b2effe7M1JKfM4Ydq93Z",
+      "target": "topic:action",
+      "relation": "discusses",
+      "weight": 1
+    },
+    {
+      "source": "session:opencode:ses_02cd79b2effe7M1JKfM4Ydq93Z",
+      "target": "topic:json",
+      "relation": "discusses",
+      "weight": 1
+    },
+    {
+      "source": "session:opencode:ses_02cd79b2effe7M1JKfM4Ydq93Z",
+      "target": "topic:policy",
+      "relation": "discusses",
+      "weight": 1
+    },
+    {
+      "source": "session:opencode:ses_02cd79b2effe7M1JKfM4Ydq93Z",
+      "target": "topic:rule",
+      "relation": "discusses",
+      "weight": 1
+    }
+  ]
+}
